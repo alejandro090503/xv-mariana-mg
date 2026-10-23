@@ -4,3 +4,4 @@ Thumbs.db
 _audio_original.mp3
 _process_photos.py
 .env*
+_raw/

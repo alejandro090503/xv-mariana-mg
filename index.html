@@ -72,13 +72,13 @@ section{position:relative;padding:72px 26px;text-align:center;}
 
 /* ---------- SOBRE ---------- */
 #envelope{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;
-  background:radial-gradient(ellipse at 50% 40%,#ffffff 0%,#eaf8ff 55%,#d9f2fd 100%);cursor:pointer;transition:opacity .9s ease;}
+  background:#f8f4ea url(ink-oval.webp) center/cover no-repeat;cursor:pointer;transition:opacity .9s ease;}
 #envelope.gone{opacity:0;pointer-events:none;}
 .env-top{text-align:center;}
 .env-top .eyebrow{margin-bottom:6px;}
 .env-top .nm{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-2);padding-left:.3em;}
 .letter{position:relative;width:min(320px,82vw);aspect-ratio:1.45;perspective:1100px;}
-.letter .back{position:absolute;inset:0;border-radius:6px;background:linear-gradient(160deg,#f4fbff,#dff3fd);box-shadow:0 30px 60px rgba(34,52,74,.16),0 6px 16px rgba(34,52,74,.08);border:1px solid rgba(168,132,86,.25);}
+.letter .back{position:absolute;inset:0;border-radius:6px;background:linear-gradient(160deg,#fbf8f0,#efe8d8);box-shadow:0 30px 60px rgba(34,52,74,.16),0 6px 16px rgba(34,52,74,.08);border:1px solid rgba(168,132,86,.25);}
 .letter .card{position:absolute;left:7%;right:7%;top:8%;height:84%;background:linear-gradient(170deg,#fffef4,#fffbe6);border-radius:4px;border:1px solid rgba(168,132,86,.3);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform 1s cubic-bezier(.2,.7,.2,1) .55s;z-index:1;}
 .letter .card b{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:.24em;color:var(--ink);}
@@ -240,7 +240,7 @@ section{position:relative;padding:72px 26px;text-align:center;}
 .confetti{position:fixed;top:-12px;width:8px;height:12px;z-index:9000;pointer-events:none;border-radius:2px;}
 
 /* ---------- FOOTER ---------- */
-footer{position:relative;z-index:1;padding:60px 20px 120px;text-align:center;}
+footer{position:relative;z-index:1;overflow:hidden;padding:60px 20px 120px;text-align:center;}
 footer .mono{font-family:var(--serif);font-weight:600;font-size:46px;letter-spacing:.1em;}
 footer .fd{font-family:var(--caps);font-size:13px;letter-spacing:.3em;color:var(--ink-2);margin-top:6px;}
 footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);font-weight:600;font-size:16px;color:var(--ink-2);text-decoration:none;}
@@ -286,6 +286,15 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 .nf-list a.cur{font-style:italic;color:var(--accent);}
 .nf-foot{text-align:center;font-family:var(--caps);font-size:12px;letter-spacing:.26em;color:var(--ink-2);}
 
+
+/* Fondos de tinta (tintas de Lekshmy repintadas a azul polvo/crema/champán) */
+.ink{position:absolute;inset:0;z-index:0;pointer-events:none;background-size:cover;background-position:center;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 90px,#000 calc(100% - 90px),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 90px,#000 calc(100% - 90px),transparent 100%);}
+.ink-top-only{-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 120px),transparent 100%);mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 120px),transparent 100%);}
+.ink-flip{transform:scaleY(-1);}
+section>*:not(.ink):not(.hero-glow):not(.hero-frame),footer>*:not(.ink){position:relative;z-index:1;}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.2s!important;}
 }
@@ -314,12 +323,12 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
     <div class="back"></div>
     <div class="card"><span>XV AÑOS</span><b>MARIANA</b><span>15 · IV · 2027</span></div>
     <div class="front"><svg viewBox="0 0 320 220" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 220 L160 112 L320 220 Z" fill="#e3f4fd" stroke="rgba(168,132,86,.35)" stroke-width="1"/>
-      <path d="M0 0 L0 220 L150 118 Z" fill="#eaf8ff" stroke="rgba(168,132,86,.25)" stroke-width="1"/>
-      <path d="M320 0 L320 220 L170 118 Z" fill="#eaf8ff" stroke="rgba(168,132,86,.25)" stroke-width="1"/>
+      <path d="M0 220 L160 112 L320 220 Z" fill="#e9eef4" stroke="rgba(168,132,86,.35)" stroke-width="1"/>
+      <path d="M0 0 L0 220 L150 118 Z" fill="#f3f1ea" stroke="rgba(168,132,86,.25)" stroke-width="1"/>
+      <path d="M320 0 L320 220 L170 118 Z" fill="#f3f1ea" stroke="rgba(168,132,86,.25)" stroke-width="1"/>
     </svg></div>
     <div class="flap"><svg viewBox="0 0 320 128" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0 L320 0 L160 128 Z" fill="#d6effb" stroke="rgba(168,132,86,.4)" stroke-width="1"/>
+      <path d="M0 0 L320 0 L160 128 Z" fill="#dce5ef" stroke="rgba(168,132,86,.4)" stroke-width="1"/>
       <path d="M10 4 L310 4 L160 118 Z" fill="none" stroke="rgba(168,132,86,.3)" stroke-width=".7"/>
     </svg></div>
     <div class="seal"><svg viewBox="0 0 80 80" aria-hidden="true">
@@ -350,6 +359,7 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 
   <!-- PORTADA -->
   <section class="hero" id="inicio" data-nav="Inicio">
+    <div class="ink ink-top-only" style="background-image:url(ink-top.webp);background-position:top center"></div>
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-frame" aria-hidden="true"></div>
     <div class="hero-inner" id="heroInner">
@@ -374,6 +384,7 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 
   <!-- MENSAJE -->
   <section id="mensaje" data-nav="Mensaje">
+    <div class="ink" style="background-image:url(ink-oval.webp)"></div>
     <div class="letter-card fx-letter">
       <div class="eyebrow">Con todo nuestro cariño</div>
       <p class="quote split-words">Hay momentos que soñamos toda la vida&hellip; y hay días que marcan el inicio de una nueva historia.</p>
@@ -384,6 +395,7 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 
   <!-- CUENTA REGRESIVA -->
   <section id="cuenta" data-nav="Cuenta">
+    <div class="ink" style="background-image:url(ink-hero.webp);opacity:.7"></div>
     <div class="eyebrow">Faltan</div>
     <h2 class="sec-title split-title">Cuenta regresiva</h2>
     <div class="cd" id="cd">
@@ -428,6 +440,7 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 
   <!-- DRESS CODE -->
   <section id="vestimenta" data-nav="Vestimenta">
+    <div class="ink" style="background-image:url(ink-corner.webp);opacity:.85"></div>
     <div class="eyebrow">Etiqueta</div>
     <h2 class="sec-title split-title">Código de vestimenta</h2>
     <div class="dc-note">Formal</div>
@@ -464,6 +477,7 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 
   <!-- ÁLBUM -->
   <section id="album" data-nav="Álbum">
+    <div class="ink" style="background-image:url(ink-hero.webp);opacity:.6"></div>
     <div class="eyebrow">Recuerdos</div>
     <h2 class="sec-title split-title">Álbum compartido</h2>
     <div class="album-card">
@@ -495,6 +509,7 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 
   <!-- RSVP -->
   <section id="rsvp" data-nav="Confirmar">
+    <div class="ink" style="background-image:url(ink-footer.webp);opacity:.75"></div>
     <div class="eyebrow">R.S.V.P.</div>
     <h2 class="sec-title split-title">Confirma tu asistencia</h2>
     <div class="rsvp-card">
@@ -538,6 +553,7 @@ footer .credit{display:inline-block;margin-top:26px;font-family:var(--serif);fon
 </div>
 
 <footer>
+  <div class="ink ink-flip" style="background-image:url(ink-top.webp);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 120px);mask-image:linear-gradient(to bottom,transparent,#000 120px)"></div>
   <div class="mono foil">MG</div>
   <div class="fd">Mariana · XV años · 2027</div>
   <a class="credit" href="https://www.instagram.com/elysium.invitaciones" target="_blank" rel="noopener">@elysium.invitaciones</a>

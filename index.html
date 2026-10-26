@@ -569,10 +569,60 @@ body{overflow:visible;overflow-x:clip;}
 #envImg.off{opacity:0;transition:opacity .45s ease .25s;}
 #envelope .env-hint{position:relative;z-index:2;background:rgba(255,252,244,.85);}
 #envelope.open .env-hint{opacity:0;transition:opacity .3s;animation:none;}
+
+/* ===================== PORTADA SIN CAMAFEO + BRIDGERTON ===================== */
+.hero{justify-content:flex-start;padding-top:44svh;padding-bottom:150px;}
+.hero-pre{margin-bottom:14px;}
+/* abeja */
+.bee-fly{position:absolute!important;left:0;top:0;width:22px;height:22px;opacity:0;z-index:3!important;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(120,90,50,.3));}
+.bee-rest{width:16px;height:16px;vertical-align:top;margin-left:2px;transform:rotate(18deg);animation:beeRest 4s ease-in-out infinite;-webkit-text-fill-color:initial;}
+@keyframes beeRest{0%,100%{transform:rotate(18deg) translateY(0)}50%{transform:rotate(10deg) translateY(-3px)}}
+/* glicinas */
+.fx-letter{position:relative;}
+.wisteria{position:absolute;top:-34px;right:-16px;width:118px;height:96px;z-index:3;pointer-events:none;overflow:visible;filter:drop-shadow(0 4px 6px rgba(34,52,74,.12));}
+.wis-cl{animation:wisSway 5.5s ease-in-out infinite;transform-box:view-box;}
+@keyframes wisSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+/* firma */
+.sign{margin-top:26px;font-family:var(--serif);font-style:italic;font-weight:600;font-size:19px;color:var(--ink-2);}
+.sign-name{font-family:var(--serif);font-weight:700;font-size:30px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:2px;}
+/* carné de baile */
+.dance-card{margin-top:40px;}
+.dc-cord{position:absolute!important;top:-46px;left:50%;width:120px;height:70px;transform:translateX(-50%);z-index:3!important;}
+.dance-lbl{font-family:var(--caps);font-weight:600;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:-10px 0 14px;}
+/* encaje */
+.lace{position:absolute;inset:4px;pointer-events:none;z-index:0;
+  border:7px solid transparent;
+  border-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='21'%3E%3Cg fill='none' stroke='%23c4a06c' stroke-width='.9' opacity='.75'%3E%3Ccircle cx='3.5' cy='3.5' r='2.6'/%3E%3Ccircle cx='10.5' cy='3.5' r='2.6'/%3E%3Ccircle cx='17.5' cy='3.5' r='2.6'/%3E%3Ccircle cx='3.5' cy='10.5' r='2.6'/%3E%3Ccircle cx='17.5' cy='10.5' r='2.6'/%3E%3Ccircle cx='3.5' cy='17.5' r='2.6'/%3E%3Ccircle cx='10.5' cy='17.5' r='2.6'/%3E%3Ccircle cx='17.5' cy='17.5' r='2.6'/%3E%3C/g%3E%3C/svg%3E") 7 round;}
+.letter-card.live>*:not(.lace),.rsvp-card>*:not(.lace):not(.dc-cord){position:relative;z-index:1;}
+.an-inside{position:relative;}
+@media (prefers-reduced-motion:reduce){.wis-cl,.bee-rest{animation:none!important;}}
+
+/* Agua: ondas y flujo reales sobre la tinta del pie */
+.ink-bg.water i{filter:url(#waterFx);animation:inkDrift 26s ease-in-out infinite alternate;}
+.ink-bg.water::after{content:'';position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:radial-gradient(ellipse 40% 12% at 30% 40%,rgba(255,255,255,.7),transparent 70%),radial-gradient(ellipse 35% 10% at 70% 65%,rgba(255,255,255,.6),transparent 70%);
+  animation:caustic 8s ease-in-out infinite alternate;}
+@keyframes caustic{0%{transform:translate3d(-8%,0,0) scaleY(1)}50%{transform:translate3d(6%,-6%,0) scaleY(1.4)}100%{transform:translate3d(-4%,5%,0) scaleY(.8)}}
+@media (prefers-reduced-motion:reduce){.ink-bg.water i{filter:none;}.ink-bg.water::after{animation:none;}}
 </style>
 </head>
 <body class="locked">
 
+<!-- Efecto agua (solo en la tinta del pie) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="waterFx" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.018" numOctaves="2" seed="7" result="noise">
+      <animate attributeName="baseFrequency" dur="14s" values="0.008 0.018;0.011 0.024;0.007 0.016;0.008 0.018" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feOffset in="noise" dx="0" dy="0" result="flow">
+      <animate attributeName="dy" dur="9s" values="0;-40;0" repeatCount="indefinite"/>
+      <animate attributeName="dx" dur="13s" values="0;25;0" repeatCount="indefinite"/>
+    </feOffset>
+    <feDisplacementMap in="SourceGraphic" in2="flow" scale="26" xChannelSelector="R" yChannelSelector="G">
+      <animate attributeName="scale" dur="7s" values="18;30;18" repeatCount="indefinite"/>
+    </feDisplacementMap>
+  </filter>
+</svg>
 <!-- Degradado reutilizable -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -612,21 +662,12 @@ body{overflow:visible;overflow-x:clip;}
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-frame" aria-hidden="true"></div>
     <div class="hero-inner" id="heroInner">
-      <div class="cameo" id="cameo">
-        <svg viewBox="0 0 200 250" aria-hidden="true">
-          <ellipse cx="100" cy="125" rx="92" ry="117" fill="rgba(255,255,255,.75)" stroke="url(#champFill)" stroke-width="2"/>
-          <ellipse cx="100" cy="125" rx="84" ry="109" fill="none" stroke="rgba(168,132,86,.4)" stroke-width=".8"/>
-          <g id="pearls"></g>
-          <path d="M100 2 l5 7 -5 7 -5 -7z" fill="url(#champFill)"/>
-          <path d="M100 234 l5 7 -5 7 -5 -7z" fill="url(#champFill)"/>
-        </svg>
-        <div class="mono foil">MG</div>
-      </div>
       <div class="hero-pre">Mis XV años</div>
       <h1 class="hero-name" id="heroName">Mariana</h1>
       <div class="hero-sub">Una cena muy especial</div>
       <div class="hero-date"><i></i>15 · 04 · 2027<i></i></div>
     </div>
+    <img class="bee-fly" id="beeFly" src="icons/bee.png" alt="" aria-hidden="true">
     <div class="hero-scroll" aria-hidden="true"><span>Desliza</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
   </section>
 
@@ -635,7 +676,7 @@ body{overflow:visible;overflow-x:clip;}
   <section id="mensaje" data-nav="Mensaje" style="background:#fdfcf8" data-top="#fdfcf8" data-bot="#fdfcf8">
     <div class="ink-bg wave" aria-hidden="true"><i style="background-image:url(ink/ink-oval.webp)"></i></div>
     <div class="divider sec-divider"><svg viewBox="0 0 300 30"><path class="ln" d="M0 15 H128 M172 15 H300"/><circle class="pearl" cx="140" cy="15" r="3"/><circle class="pearl" cx="150" cy="15" r="4.5"/><circle class="pearl" cx="160" cy="15" r="3"/></svg></div>
-    <div class="fx-letter"><div class="letter-card live">
+    <div class="fx-letter"><svg class="wisteria" id="wisteria" viewBox="0 0 128 104" aria-hidden="true"></svg><div class="letter-card live"><span class="lace" aria-hidden="true"></span>
       <div class="eyebrow">Con todo nuestro cariño</div>
       <p class="quote split-words">Hay momentos que soñamos toda la vida&hellip; y hay días que marcan el inicio de una nueva historia.</p>
       <p class="intro-p">Queremos compartir contigo <strong>una cena muy especial</strong>. En nuestra mesa hay un lugar reservado para ti.</p>
@@ -683,7 +724,7 @@ body{overflow:visible;overflow-x:clip;}
       <div class="tl-line" id="tlLine"></div>
       <div class="tl-item"><div class="tl-txt"><div class="tl-time">4:45 PM</div><div class="tl-name">Recepción</div></div><div class="tl-dot"><img src="icons/recepcion.png" alt="Copas"></div></div>
       <div class="tl-item"><div class="tl-txt"><div class="tl-time tl-pend">Hora por confirmar</div><div class="tl-name">Cena</div></div><div class="tl-dot"><img src="icons/cena.png" alt="Cena"></div></div>
-      <div class="tl-item"><div class="tl-txt"><div class="tl-time tl-pend">Hora por confirmar</div><div class="tl-name">Vals</div></div><div class="tl-dot"><img src="icons/vals.png" alt="Vals"></div></div>
+      <div class="tl-item"><div class="tl-txt"><div class="tl-time tl-pend">Hora por confirmar</div><div class="tl-name">Vals</div></div><div class="tl-dot"><img src="icons/violin.png" alt="Violín"></div></div>
     </div>
     <p class="tl-note">El programa completo se compartirá muy pronto.</p>
   </section>
@@ -762,7 +803,7 @@ body{overflow:visible;overflow-x:clip;}
   <section id="adultos" style="background:#edf3f9;padding-top:20px;" data-top="#edf3f9" data-bot="#edf3f9">
     <div class="eyebrow">Una nota para ti</div>
     <button class="adult-note" id="adultNote" type="button" aria-expanded="false" aria-label="Toca para leer la nota">
-      <span class="an-inside">
+      <span class="an-inside"><span class="lace" aria-hidden="true"></span>
         <span class="an-kicker">Con cariño</span>
         <span class="an-title">Evento solo para adultos</span>
         <span class="an-text">Hemos preparado esta cena pensando en una velada entre adultos. Agradecemos de corazón tu comprensión.</span>
@@ -787,7 +828,9 @@ body{overflow:visible;overflow-x:clip;}
     <div class="divider sec-divider"><svg viewBox="0 0 300 30"><path class="ln" d="M0 15 H128 M172 15 H300"/><circle class="pearl" cx="140" cy="15" r="3"/><circle class="pearl" cx="150" cy="15" r="4.5"/><circle class="pearl" cx="160" cy="15" r="3"/></svg></div>
     <div class="eyebrow">R.S.V.P.</div>
     <h2 class="sec-title split-title">Confirma tu asistencia</h2>
-    <div class="rsvp-card">
+    <div class="rsvp-card dance-card"><span class="lace" aria-hidden="true"></span>
+      <svg class="dc-cord" viewBox="0 0 120 70" aria-hidden="true"><circle cx="60" cy="14" r="6" fill="#faf6ec" stroke="#c4a06c" stroke-width="1.4"/><path d="M60 14 C40 30 30 46 22 66 M60 14 C78 34 90 48 96 66" fill="none" stroke="#c4a06c" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="66" r="3" fill="#c4a06c"/><circle cx="96" cy="66" r="3" fill="#c4a06c"/></svg>
+      <div class="dance-lbl">Carné de baile</div>
       <div id="rsvp-head" style="display:none">
         <div class="rsvp-guest-lbl">Esta invitación es para</div>
         <div class="rsvp-guest" id="rsvp-guest"></div>
@@ -824,13 +867,15 @@ body{overflow:visible;overflow-x:clip;}
   <!-- CIERRE -->
   <section id="cierre" style="background:#fdfcf8;padding-top:30px;" data-top="#fdfcf8" data-bot="#fdfcf8">
     <p class="quote" style="font-size:22px;max-width:340px;margin:0 auto;">Será un honor contar contigo en esta noche tan especial.</p>
+    <p class="sign">Con la más cordial distinción,</p>
+    <p class="sign-name">Mariana</p>
   </section>
 
 </div>
 
 <footer style="background:#edf3f9" data-top="#edf3f9" data-bot="#edf3f9">
-  <div class="ink-bg wave" aria-hidden="true"><i style="background-image:url(ink/ink-footer.webp);opacity:.75"></i></div>
-  <div class="mono foil">MG</div>
+  <div class="ink-bg water" aria-hidden="true"><i style="background-image:url(ink/ink-footer.webp);opacity:.8"></i></div>
+  <div class="mono foil">MG<img class="bee-rest" src="icons/bee.png" alt="" aria-hidden="true"></div>
   <div class="fd">Mariana · XV años · 2027</div>
   <a class="credit" href="https://www.instagram.com/elysium.invitaciones" target="_blank" rel="noopener">@elysium.invitaciones</a>
 </footer>
@@ -850,13 +895,6 @@ history.scrollRestoration='manual';window.scrollTo(0,0);
 gsap.registerPlugin(ScrollTrigger);
 var REDUCED=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Perlas alrededor del camafeo */
-(function(){
-  var g=document.getElementById('pearls'),n=40,s='';
-  for(var i=0;i<n;i++){var a=i/n*Math.PI*2;var x=100+97*Math.cos(a),y=125+122*Math.sin(a);
-    s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(i%2?1.6:2.3)+'" fill="#fff" stroke="rgba(168,132,86,.55)" stroke-width=".5"/>';}
-  g.innerHTML=s;
-})();
 
 /* Nombre letra por letra */
 (function(){var el=document.getElementById('heroName');var t=el.textContent;el.textContent='';
@@ -903,11 +941,11 @@ function launch(){
   mBtn.classList.add('ready');
   document.getElementById('navPill').classList.add('on');
   var tl=gsap.timeline({defaults:{ease:'power3.out'}});
-  tl.fromTo('#cameo',{opacity:0,scale:.92},{opacity:1,scale:1,duration:1.2})
-    .fromTo('.hero-pre',{opacity:0,y:10},{opacity:1,y:0,duration:.8},'-=.6')
+  tl.fromTo('.hero-pre',{opacity:0,y:10},{opacity:1,y:0,duration:.8},'-=.6')
     .fromTo('#heroName .ch',{opacity:0,y:24},{opacity:1,y:0,duration:.9,stagger:.07},'-=.5')
     .fromTo('.hero-sub,.hero-date',{opacity:0,y:12},{opacity:1,y:0,duration:.8,stagger:.15},'-=.4');
   initScroll();
+  beeFlight();
   ScrollTrigger.refresh();
 }
 
@@ -919,7 +957,6 @@ function initScroll(){
   gsap.fromTo('#heroInner',{y:0,opacity:1,filter:'blur(0px)'},{y:-110,opacity:0,filter:'blur(10px)',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
   gsap.fromTo('#heroBg',{y:0,filter:'blur(0px) brightness(1)'},{y:-70,filter:'blur(5px) brightness(.92)',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
   /* Ken Burns suave del camafeo en reposo */
-  gsap.to('#cameo svg',{scale:1.03,duration:7,yoyo:true,repeat:-1,ease:'sine.inOut',transformOrigin:'50% 50%'});
 
   /* Títulos: reveal por palabras */
   document.querySelectorAll('.split-title').forEach(function(t){
@@ -1111,6 +1148,37 @@ initSectionFades();
     }
   });
 })();
+
+
+/* ---------- Bridgerton: glicinas ---------- */
+(function(){
+  var svg=document.getElementById('wisteria');if(!svg)return;
+  var NS='http://www.w3.org/2000/svg',cols=['#c9d7e8','#b4c7df','#9fb5d2','#dfe7f2','#8ea5c4'];
+  var stem=document.createElementNS(NS,'path');stem.setAttribute('d','M4 6 C40 1 80 9 124 4');stem.setAttribute('stroke','#b8956a');stem.setAttribute('stroke-width','1.2');stem.setAttribute('fill','none');svg.appendChild(stem);
+  [[22,62,0],[50,88,1],[78,70,2],[104,52,3]].forEach(function(c){
+    var g=document.createElementNS(NS,'g');g.setAttribute('class','wis-cl');g.style.transformOrigin=c[0]+'px 6px';g.style.animationDelay=(-c[2]*1.3)+'s';
+    var L=c[1],rows=Math.round(L/4.2);
+    for(var i=0;i<rows;i++){var t=i/rows,w=11*(1-t*.8)+1.5;
+      for(var k=0;k<4;k++){var e=document.createElementNS(NS,'ellipse'),ang=(k/4)*Math.PI*2+i*.9;
+        e.setAttribute('cx',(c[0]+Math.cos(ang)*w*.55).toFixed(1));e.setAttribute('cy',(9+i*4.2+Math.sin(ang)*1.5).toFixed(1));
+        var r=4.4*(1-t*.55);e.setAttribute('rx',r.toFixed(2));e.setAttribute('ry',(r*.8).toFixed(2));
+        e.setAttribute('fill',cols[(i*3+k)%cols.length]);e.setAttribute('opacity',(1-t*.3).toFixed(2));g.appendChild(e);}
+    }
+    for(var j=0;j<3;j++){var lf=document.createElementNS(NS,'path');var x=c[0]+(j-1)*6;
+      lf.setAttribute('d','M'+x+' 6 q'+(j-1)*5+' 6 '+(j-1)*9+' 9');lf.setAttribute('stroke','#a9b98f');lf.setAttribute('stroke-width','2.2');lf.setAttribute('stroke-linecap','round');lf.setAttribute('fill','none');lf.setAttribute('opacity','.7');g.appendChild(lf);}
+    svg.appendChild(g);
+  });
+})();
+/* ---------- Bridgerton: la abeja cruza la portada una vez ---------- */
+function beeFlight(){
+  var b=document.getElementById('beeFly');if(!b||REDUCED)return;
+  var W=b.parentNode.offsetWidth;
+  gsap.timeline({delay:1.6})
+    .set(b,{x:-40,y:120,opacity:0,rotation:20})
+    .to(b,{opacity:1,duration:.4})
+    .to(b,{duration:5,ease:'sine.inOut',x:W+40,motionPath:null,onUpdate:function(){var t=this.progress();gsap.set(b,{y:120-Math.sin(t*Math.PI*3)*40-t*60,rotation:20+Math.cos(t*Math.PI*3)*18});}},'<')
+    .to(b,{opacity:0,duration:.4},'-=.5');
+}
 
 /* Calendario */
 (function(){

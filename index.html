@@ -559,6 +559,16 @@ body{overflow:visible;overflow-x:clip;}
 @media (prefers-reduced-motion:reduce){
   .letter-card.live,.letter-card.live::after,.letter-card.live .place-card,.ink-bg.wave i,.ink-bg.wave::after,.dcx-orb,.dcx-orb::after,.an-seal{animation:none!important;}
 }
+
+/* Sobre del cliente: imagen + video */
+#envelope{background:#f3ead8;gap:0;justify-content:flex-end;padding-bottom:calc(56px + env(safe-area-inset-bottom));}
+#envelope::before{display:none;}
+#envImg,#envVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 50%;}
+#envVid{opacity:0;transition:opacity .45s ease;}
+#envVid.on{opacity:1;}
+#envImg.off{opacity:0;transition:opacity .45s ease .25s;}
+#envelope .env-hint{position:relative;z-index:2;background:rgba(255,252,244,.85);}
+#envelope.open .env-hint{opacity:0;transition:opacity .3s;animation:none;}
 </style>
 </head>
 <body class="locked">
@@ -575,29 +585,8 @@ body{overflow:visible;overflow-x:clip;}
 
 <!-- SOBRE -->
 <div id="envelope" role="button" tabindex="0" aria-label="Toca para abrir tu invitación">
-  <div class="env-top">
-    <div class="eyebrow">Una invitación para ti</div>
-    <div class="nm">Mariana</div>
-  </div>
-  <div class="letter">
-    <div class="back"></div>
-    <div class="card"><span>XV AÑOS</span><b>MARIANA</b><span>15 · IV · 2027</span></div>
-    <div class="front"><svg viewBox="0 0 320 220" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 220 L160 112 L320 220 Z" fill="#e9eef4" stroke="rgba(168,132,86,.35)" stroke-width="1"/>
-      <path d="M0 0 L0 220 L150 118 Z" fill="#f3f1ea" stroke="rgba(168,132,86,.25)" stroke-width="1"/>
-      <path d="M320 0 L320 220 L170 118 Z" fill="#f3f1ea" stroke="rgba(168,132,86,.25)" stroke-width="1"/>
-    </svg></div>
-    <div class="flap"><svg viewBox="0 0 320 128" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0 L320 0 L160 128 Z" fill="#dce5ef" stroke="rgba(168,132,86,.4)" stroke-width="1"/>
-      <path d="M10 4 L310 4 L160 118 Z" fill="none" stroke="rgba(168,132,86,.3)" stroke-width=".7"/>
-    </svg></div>
-    <div class="seal"><svg viewBox="0 0 80 80" aria-hidden="true">
-      <path d="M40 3 C49 4 52 9 60 9 C68 12 70 19 74 26 C78 34 76 40 77 47 C75 56 70 60 66 67 C59 73 52 74 44 77 C36 78 29 74 22 72 C14 68 10 61 6 54 C3 46 4 38 4 31 C8 22 12 16 19 10 C26 6 32 3 40 3 Z" fill="url(#waxFill)"/>
-      <circle cx="40" cy="40" r="25" fill="none" stroke="rgba(120,90,50,.45)" stroke-width="1.2"/>
-      <circle cx="40" cy="40" r="21" fill="none" stroke="rgba(255,248,232,.6)" stroke-width=".6" stroke-dasharray="1 3"/>
-      <text x="40" y="47" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="20" fill="#7a5a30" letter-spacing="1">MG</text>
-    </svg></div>
-  </div>
+  <img id="envImg" src="sobre.jpg" alt="Sobre de la invitación de Mariana con sello MG">
+  <video id="envVid" src="sobre.mp4" muted playsinline webkit-playsinline preload="auto"></video>
   <div class="env-hint">Toca para abrir</div>
 </div>
 
@@ -879,20 +868,25 @@ document.querySelectorAll('.split-title,.split-words').forEach(function(el){
   words.forEach(function(w,i){var s=document.createElement('span');s.className='w';s.textContent=w;el.appendChild(s);if(i<words.length-1)el.appendChild(document.createTextNode(' '));});
 });
 
-/* ---------- SOBRE ---------- */
+/* ---------- SOBRE (imagen + video del cliente) ---------- */
 (function(){
-  var env=document.getElementById('envelope'),opened=false;
+  var env=document.getElementById('envelope'),vid=document.getElementById('envVid'),img=document.getElementById('envImg'),opened=false,shown=false;
+  function reveal(){
+    if(shown)return;shown=true;
+    env.classList.add('gone');document.body.classList.remove('locked');launch();
+    setTimeout(function(){env.style.display='none';},900);
+  }
   function open(){
     if(opened)return;opened=true;
-    env.classList.add('open');
-    startMusic();
-    setTimeout(function(){
-      env.classList.add('gone');
-      document.body.classList.remove('locked');
-      launch();
-      setTimeout(function(){env.style.display='none';},900);
-    },REDUCED?200:1700);
+    env.classList.add('open');startMusic();
+    if(REDUCED){reveal();return;}
+    var p=vid.play();
+    vid.classList.add('on');img.classList.add('off');
+    if(p&&p.catch)p.catch(function(){reveal();});
+    setTimeout(reveal,9000);
   }
+  vid.addEventListener('timeupdate',function(){if(vid.duration&&vid.currentTime>=vid.duration-.6)reveal();});
+  vid.addEventListener('ended',reveal);
   env.addEventListener('click',open);
   env.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
 })();

@@ -454,6 +454,111 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
 @media (prefers-reduced-motion:reduce){
   .hero-drift,.hero-sheen::before,.ink-bg i,.lev,.loc-card.float,.dcx-fig img,.dcx-dot,.dcx-dot::after,.env-body.landed{animation:none!important;}
 }
+
+/* ===================== AJUSTES 25 OCT ===================== */
+/* Scroll: el body no debe ser un 2º contenedor de scroll */
+html{overflow-x:hidden;overflow-x:clip;}
+body{overflow:visible;overflow-x:clip;}
+
+/* Iconos PNG del programa */
+.tl-dot{width:52px;height:52px;margin:-26px 0 0 -26px;background:#fffdf8;box-shadow:0 0 0 4px rgba(247,231,206,.45),0 8px 18px rgba(34,52,74,.1);}
+.tl-dot img{width:30px;height:30px;object-fit:contain;display:block;}
+
+/* Una bolita que cambia de color */
+.dcx-one{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.dcx-orb{position:relative;width:76px;height:76px;border-radius:50%;padding:0;border:3px solid #fff;
+  box-shadow:0 0 0 1px rgba(168,132,86,.55),0 10px 22px rgba(34,52,74,.15);animation:dotGlow 3.2s ease-in-out infinite;overflow:hidden;}
+.dcx-orb .dcx-dot{position:absolute;inset:0;width:auto;height:auto;border:none;box-shadow:none;border-radius:50%;background:var(--c);opacity:0;transition:opacity 1.1s ease;animation:none;}
+.dcx-orb .dcx-dot.on{opacity:1;}
+.dcx-orb .dcx-dot::after{display:none;}
+.dcx-orb::after{content:'';position:absolute;top:-20%;bottom:-20%;left:-80%;width:50%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);animation:dotSheen 4s ease-in-out infinite;z-index:2;}
+.dcx-names{position:relative;height:24px;width:180px;}
+.dcx-names .dcx-name{position:absolute;inset:0;text-align:center;opacity:0;transition:opacity 1.1s ease;}
+.dcx-names .dcx-name.on{opacity:1;}
+
+/* Tintas: más movimiento */
+.ink-bg i{inset:-12%;animation-duration:18s;}
+@keyframes inkDrift{0%{transform:translate3d(0,0,0) scale(1) rotate(0deg)}33%{transform:translate3d(-6%,3%,0) scale(1.1) rotate(-1.6deg)}66%{transform:translate3d(4%,-3%,0) scale(1.06) rotate(1.2deg)}100%{transform:translate3d(6%,4%,0) scale(1.16) rotate(-.8deg)}}
+@keyframes inkDriftFlip{0%{transform:scaleX(-1) translate3d(0,0,0) scale(1) rotate(0deg)}33%{transform:scaleX(-1) translate3d(-6%,3%,0) scale(1.1) rotate(-1.6deg)}66%{transform:scaleX(-1) translate3d(4%,-3%,0) scale(1.06) rotate(1.2deg)}100%{transform:scaleX(-1) translate3d(6%,4%,0) scale(1.16) rotate(-.8deg)}}
+/* Ondeo premium: la tela de tinta se mece en 3D + un reflejo que recorre la ondulación */
+.ink-bg.wave{perspective:900px;}
+.ink-bg.wave i{animation:inkFabric 11s ease-in-out infinite alternate;transform-origin:50% 0;}
+.ink-bg.wave.flip i{animation-name:inkFabricFlip;}
+@keyframes inkFabric{
+  0%  {transform:rotateX(0deg) rotateY(0deg) skewY(0deg) scale(1.06)}
+  25% {transform:rotateX(5deg) rotateY(-4deg) skewY(1.6deg) scale(1.1) translate3d(-2%,1%,0)}
+  50% {transform:rotateX(-3deg) rotateY(5deg) skewY(-1.4deg) scale(1.08) translate3d(2%,-1%,0)}
+  75% {transform:rotateX(4deg) rotateY(-2deg) skewY(1deg) scale(1.12) translate3d(-1%,2%,0)}
+  100%{transform:rotateX(-2deg) rotateY(3deg) skewY(-.8deg) scale(1.07) translate3d(1.5%,-2%,0)}}
+@keyframes inkFabricFlip{
+  0%  {transform:scaleX(-1) rotateX(0deg) rotateY(0deg) skewY(0deg) scale(1.06)}
+  25% {transform:scaleX(-1) rotateX(5deg) rotateY(-4deg) skewY(1.6deg) scale(1.1) translate3d(-2%,1%,0)}
+  50% {transform:scaleX(-1) rotateX(-3deg) rotateY(5deg) skewY(-1.4deg) scale(1.08) translate3d(2%,-1%,0)}
+  75% {transform:scaleX(-1) rotateX(4deg) rotateY(-2deg) skewY(1deg) scale(1.12) translate3d(-1%,2%,0)}
+  100%{transform:scaleX(-1) rotateX(-2deg) rotateY(3deg) skewY(-.8deg) scale(1.07) translate3d(1.5%,-2%,0)}}
+.ink-bg.wave::after{content:'';position:absolute;inset:-20% -40%;pointer-events:none;mix-blend-mode:soft-light;
+  background:repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 60px,rgba(255,255,255,.55) 90px,rgba(255,255,255,0) 130px 200px);
+  animation:waveSheen 9s linear infinite;}
+@keyframes waveSheen{from{transform:translate3d(-200px,0,0)}to{transform:translate3d(0,0,0)}}
+
+/* Carta del mensaje viva */
+.letter-card.live{overflow:hidden;animation:letterFloat 7s ease-in-out infinite,letterGlow 5s ease-in-out infinite;}
+@keyframes letterFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(-.5deg)}}
+@keyframes letterGlow{0%,100%{box-shadow:0 20px 50px rgba(34,52,74,.08),0 0 0 rgba(212,175,110,0)}50%{box-shadow:0 28px 60px rgba(34,52,74,.12),0 0 34px rgba(212,175,110,.35)}}
+.letter-card.live::after{content:'';position:absolute;top:-30%;bottom:-30%;left:-70%;width:45%;transform:skewX(-18deg);pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,250,236,.75),transparent);animation:letterSheen 6.5s ease-in-out infinite;}
+@keyframes letterSheen{0%{left:-70%}45%,100%{left:140%}}
+.letter-card.live .place-card{animation:placeSway 5.5s ease-in-out infinite;}
+@keyframes placeSway{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(1deg) translateY(-3px)}}
+
+/* Disco de vinilo */
+.vinyl-btn{position:fixed;right:16px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:998;width:66px;height:66px;border-radius:50%;padding:0;border:none;cursor:pointer;background:transparent;
+  opacity:0;transform:scale(.6);pointer-events:none;transition:opacity .5s,transform .35s cubic-bezier(.2,.7,.2,1);box-shadow:0 6px 20px rgba(34,52,74,.35),0 0 0 1px rgba(196,160,108,.35);}
+.vinyl-btn.ready{opacity:1;transform:scale(1);pointer-events:auto;}
+.vinyl-spin{width:100%;height:100%;border-radius:50%;position:relative;}
+.vinyl-btn.playing .vinyl-spin{animation:vinylSpin 1.8s linear infinite;}
+@keyframes vinylSpin{to{transform:rotate(360deg)}}
+.vinyl-disc{width:100%;height:100%;border-radius:50%;overflow:hidden;position:relative;background:repeating-radial-gradient(circle at 50% 50%,#141c27 0 1.5px,#1e2836 1.5px 3px);}
+.vinyl-disc::after{content:'';position:absolute;top:50%;left:50%;width:42%;height:42%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 40% 35%,#fbf1de,#e3c99c 55%,#b8956a);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4);}
+.vinyl-sheen{position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.1) 42%,rgba(255,255,255,.18) 48%,rgba(255,255,255,.1) 54%,transparent 66%);z-index:1;}
+.vinyl-label-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;font-family:var(--serif);font-weight:700;font-size:10px;color:#7a5a30;text-align:center;line-height:1;width:26px;}
+.vinyl-label-text small{display:block;font-family:var(--sans);font-size:5px;letter-spacing:.15em;opacity:.8;margin-top:1px;}
+.vinyl-hole{position:absolute;top:50%;left:50%;width:5px;height:5px;transform:translate(-50%,-50%);border-radius:50%;background:#141c27;z-index:2;}
+.vinyl-icons{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16px;height:16px;pointer-events:none;z-index:3;transition:opacity .3s;}
+.vinyl-btn.playing .vinyl-icons{opacity:0;}
+.vinyl-icons svg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6));}
+.vinyl-icon-pause{display:none;}
+.vinyl-btn::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1px solid #c4a06c;opacity:.35;animation:vinylPulse 3s ease-in-out infinite;}
+.vinyl-btn.playing::after{animation-duration:1.6s;}
+@keyframes vinylPulse{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.12);opacity:.05}}
+.vinyl-tonearm{position:absolute;top:-4px;right:-2px;width:24px;height:34px;transform-origin:top right;transform:rotate(-28deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:4;}
+.vinyl-btn.playing .vinyl-tonearm{transform:rotate(-12deg);}
+.vinyl-tonearm-line{position:absolute;top:2px;right:4px;width:2px;height:28px;background:linear-gradient(to bottom,#8a6a3e,#d9bd8f 40%,#8a6a3e);border-radius:1px;transform:rotate(-5deg);transform-origin:top center;}
+.vinyl-tonearm-head{position:absolute;bottom:0;right:2px;width:5px;height:6px;background:#c4a06c;border-radius:0 0 2px 2px;}
+.vinyl-tonearm-pivot{position:absolute;top:0;right:2px;width:7px;height:7px;background:radial-gradient(circle,#fbf1de,#b8956a);border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.3);}
+
+/* Nota sellada "solo adultos" */
+.adult-note{position:relative;display:block;width:100%;max-width:340px;min-height:230px;margin:6px auto 0;padding:0;border:none;background:none;cursor:pointer;perspective:1200px;touch-action:manipulation;color:inherit;font:inherit;}
+.an-inside{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:230px;padding:30px 26px;background:linear-gradient(170deg,#fffef6,#fbf5e7);border:1px solid var(--hair);box-shadow:0 18px 40px rgba(34,52,74,.1);text-align:center;}
+.an-kicker{font-family:var(--caps);font-weight:600;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
+.an-title{font-family:var(--serif);font-weight:700;font-size:28px;line-height:1.2;color:var(--ink);}
+.an-text{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.6;color:var(--ink-2);}
+.an-inside>*{opacity:0;transform:translateY(8px);transition:opacity .6s ease .45s,transform .6s ease .45s;}
+.adult-note.open .an-inside>*{opacity:1;transform:none;}
+.an-cover{position:absolute;inset:0;transform-origin:50% 0;transform-style:preserve-3d;transition:transform 1.1s cubic-bezier(.65,0,.25,1);z-index:2;}
+.an-cover-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:linear-gradient(160deg,#eaf2f9,#d9e6f2);border:1px solid var(--hair);box-shadow:0 18px 40px rgba(34,52,74,.12);}
+.an-cover-face::before{content:'';position:absolute;inset:9px;border:1px solid rgba(168,132,86,.35);}
+.an-seal{width:78px;height:78px;filter:drop-shadow(0 6px 10px rgba(120,90,50,.35));animation:sealBeat 2.8s ease-in-out infinite;transition:transform .5s ease,opacity .4s ease;}
+@keyframes sealBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.an-hint{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);}
+.adult-note.open .an-seal{transform:scale(1.4);opacity:0;animation:none;}
+.adult-note.open .an-cover{transform:rotateX(-178deg);pointer-events:none;}
+.an-spark{position:fixed;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:radial-gradient(circle,#fff6e0,#d9bd8f);z-index:999;pointer-events:none;}
+
+@media (prefers-reduced-motion:reduce){
+  .letter-card.live,.letter-card.live::after,.letter-card.live .place-card,.ink-bg.wave i,.ink-bg.wave::after,.dcx-orb,.dcx-orb::after,.an-seal{animation:none!important;}
+}
 </style>
 </head>
 <body class="locked">
@@ -500,8 +605,6 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
 <nav id="navPill" aria-label="Secciones">
   <a class="np-mono" href="#inicio" aria-label="Inicio">MG</a>
   <div class="np-links" id="npLinks"><span class="np-ind" id="npInd"></span></div>
-  <span class="np-sep"></span>
-  <button class="np-share" id="npShare" type="button" aria-label="Compartir invitación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button>
   <button class="np-menu" id="npMenu" type="button" aria-expanded="false" aria-controls="navFull">&#9776; Menú</button>
 </nav>
 <div id="navFull" aria-hidden="true">
@@ -541,14 +644,14 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
 
   <!-- MENSAJE -->
   <section id="mensaje" data-nav="Mensaje" style="background:#fdfcf8" data-top="#fdfcf8" data-bot="#fdfcf8">
-    <div class="ink-bg" aria-hidden="true"><i style="background-image:url(ink/ink-oval.webp)"></i></div>
+    <div class="ink-bg wave" aria-hidden="true"><i style="background-image:url(ink/ink-oval.webp)"></i></div>
     <div class="divider sec-divider"><svg viewBox="0 0 300 30"><path class="ln" d="M0 15 H128 M172 15 H300"/><circle class="pearl" cx="140" cy="15" r="3"/><circle class="pearl" cx="150" cy="15" r="4.5"/><circle class="pearl" cx="160" cy="15" r="3"/></svg></div>
-    <div class="letter-card fx-letter">
+    <div class="fx-letter"><div class="letter-card live">
       <div class="eyebrow">Con todo nuestro cariño</div>
       <p class="quote split-words">Hay momentos que soñamos toda la vida&hellip; y hay días que marcan el inicio de una nueva historia.</p>
       <p class="intro-p">Queremos compartir contigo <strong>una cena muy especial</strong>. En nuestra mesa hay un lugar reservado para ti.</p>
       <div class="place-card"><small>Lugar reservado</small><b>Para ti</b></div>
-    </div>
+    </div></div>
   </section>
 
   <!-- CUENTA REGRESIVA -->
@@ -589,9 +692,9 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
     <h2 class="sec-title split-title">Programa</h2>
     <div class="tl" id="tl">
       <div class="tl-line" id="tlLine"></div>
-      <div class="tl-item"><div class="tl-txt"><div class="tl-time">4:45 PM</div><div class="tl-name">Recepción</div></div><div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#8a6a3e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 7a3 3 0 0 1-6 0z"/><path d="M12 13v7M8.5 21h7"/></svg></div></div>
-      <div class="tl-item"><div class="tl-txt"><div class="tl-time tl-pend">Hora por confirmar</div><div class="tl-name">Cena</div></div><div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#8a6a3e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M3 4v7M5 4v7M3 8h2M4 11v9M21 4c-2 1-2 5-2 7h2v9"/></svg></div></div>
-      <div class="tl-item"><div class="tl-txt"><div class="tl-time tl-pend">Hora por confirmar</div><div class="tl-name">Vals</div></div><div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#8a6a3e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div></div>
+      <div class="tl-item"><div class="tl-txt"><div class="tl-time">4:45 PM</div><div class="tl-name">Recepción</div></div><div class="tl-dot"><img src="icons/recepcion.png" alt="Copas"></div></div>
+      <div class="tl-item"><div class="tl-txt"><div class="tl-time tl-pend">Hora por confirmar</div><div class="tl-name">Cena</div></div><div class="tl-dot"><img src="icons/cena.png" alt="Cena"></div></div>
+      <div class="tl-item"><div class="tl-txt"><div class="tl-time tl-pend">Hora por confirmar</div><div class="tl-name">Vals</div></div><div class="tl-dot"><img src="icons/vals.png" alt="Vals"></div></div>
     </div>
     <p class="tl-note">El programa completo se compartirá muy pronto.</p>
   </section>
@@ -599,7 +702,7 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
 
   <!-- DRESS CODE -->
   <section id="vestimenta" data-nav="Vestimenta" style="background:#edf3f9" data-top="#edf3f9" data-bot="#edf3f9">
-    <div class="ink-bg flip" aria-hidden="true"><i style="background-image:url(ink/ink-corner.webp);opacity:.85"></i></div>
+    <div class="ink-bg wave flip" aria-hidden="true"><i style="background-image:url(ink/ink-corner.webp);opacity:.85"></i></div>
     <div class="divider sec-divider"><svg viewBox="0 0 300 30"><path class="ln" d="M0 15 H128 M172 15 H300"/><circle class="pearl" cx="140" cy="15" r="3"/><circle class="pearl" cx="150" cy="15" r="4.5"/><circle class="pearl" cx="160" cy="15" r="3"/></svg></div>
     <div class="eyebrow">Etiqueta</div>
     <h2 class="sec-title split-title">Código de vestimenta</h2>
@@ -609,10 +712,9 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
       <figure class="dcx-fig"><img src="./dama.png" alt="Dama con vestido largo"><figcaption>Damas<small>Vestido largo</small></figcaption></figure>
     </div>
     <p class="dcx-lbl">Colores sugeridos</p>
-    <div class="dcx-sw" id="dcxSw">
-      <div class="dcx-item"><span class="dcx-dot" style="--c:#ffbfcc"></span><span class="dcx-name">Rosa suave</span></div>
-      <div class="dcx-item"><span class="dcx-dot" style="--c:#4f5600"></span><span class="dcx-name">Verde olivo</span></div>
-      <div class="dcx-item"><span class="dcx-dot" style="--c:#ffeca0"></span><span class="dcx-name">Amarillo suave</span></div>
+    <div class="dcx-one" id="dcxOne" aria-live="polite">
+      <div class="dcx-orb"><span class="dcx-dot on" style="--c:#ffbfcc"></span><span class="dcx-dot" style="--c:#4f5600"></span><span class="dcx-dot" style="--c:#ffeca0"></span></div>
+      <div class="dcx-names"><span class="dcx-name on">Rosa suave</span><span class="dcx-name">Verde olivo</span><span class="dcx-name">Amarillo suave</span></div>
     </div>
   </section>
 
@@ -666,28 +768,33 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
     </div>
   </section>
 
-  <!-- HOSPEDAJE -->
-  <section id="hospedaje" style="background:#edf3f9;padding-top:30px;" data-top="#edf3f9" data-bot="#edf3f9">
-    <div class="soft-card fx-slide"><div class="lev lev-b">
-      <div class="eyebrow">Para tu estadía</div>
-      <h3>Hospedaje</h3>
-      <p>Por confirmar. Muy pronto compartiremos opciones cercanas al lugar del evento.</p>
-    </div></div>
-  </section>
 
   <!-- SOLO ADULTOS -->
   <section id="adultos" style="background:#edf3f9;padding-top:20px;" data-top="#edf3f9" data-bot="#edf3f9">
-    <div class="soft-card fx-slide">
-      <div class="eyebrow">Con cariño</div>
-      <h3>Evento solo para adultos</h3>
-      <p>Hemos preparado esta cena pensando en una velada entre adultos. Agradecemos de corazón tu comprensión.</p>
-    </div>
+    <div class="eyebrow">Una nota para ti</div>
+    <button class="adult-note" id="adultNote" type="button" aria-expanded="false" aria-label="Toca para leer la nota">
+      <span class="an-inside">
+        <span class="an-kicker">Con cariño</span>
+        <span class="an-title">Evento solo para adultos</span>
+        <span class="an-text">Hemos preparado esta cena pensando en una velada entre adultos. Agradecemos de corazón tu comprensión.</span>
+      </span>
+      <span class="an-cover">
+        <span class="an-cover-face">
+          <svg class="an-seal" viewBox="0 0 80 80" aria-hidden="true">
+            <path d="M40 3 C49 4 52 9 60 9 C68 12 70 19 74 26 C78 34 76 40 77 47 C75 56 70 60 66 67 C59 73 52 74 44 77 C36 78 29 74 22 72 C14 68 10 61 6 54 C3 46 4 38 4 31 C8 22 12 16 19 10 C26 6 32 3 40 3 Z" fill="url(#waxFill)"/>
+            <circle cx="40" cy="40" r="25" fill="none" stroke="rgba(120,90,50,.45)" stroke-width="1.2"/>
+            <text x="40" y="47" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="20" fill="#7a5a30">MG</text>
+          </svg>
+          <span class="an-hint">Toca para leer</span>
+        </span>
+      </span>
+    </button>
   </section>
 
 
   <!-- RSVP -->
   <section id="rsvp" data-nav="Confirmar" style="background:#faf6ec" data-top="#faf6ec" data-bot="#faf6ec">
-    <div class="ink-bg flip" aria-hidden="true"><i style="background-image:url(ink/ink-oval.webp);opacity:.9"></i></div>
+    <div class="ink-bg wave flip" aria-hidden="true"><i style="background-image:url(ink/ink-oval.webp);opacity:.9"></i></div>
     <div class="divider sec-divider"><svg viewBox="0 0 300 30"><path class="ln" d="M0 15 H128 M172 15 H300"/><circle class="pearl" cx="140" cy="15" r="3"/><circle class="pearl" cx="150" cy="15" r="4.5"/><circle class="pearl" cx="160" cy="15" r="3"/></svg></div>
     <div class="eyebrow">R.S.V.P.</div>
     <h2 class="sec-title split-title">Confirma tu asistencia</h2>
@@ -733,15 +840,19 @@ section:has(.ink-bg) .eyebrow,section:has(.ink-bg) .sec-title,section:has(.ink-b
 </div>
 
 <footer style="background:#edf3f9" data-top="#edf3f9" data-bot="#edf3f9">
-  <div class="ink-bg" aria-hidden="true"><i style="background-image:url(ink/ink-footer.webp);opacity:.75"></i></div>
+  <div class="ink-bg wave" aria-hidden="true"><i style="background-image:url(ink/ink-footer.webp);opacity:.75"></i></div>
   <div class="mono foil">MG</div>
   <div class="fd">Mariana · XV años · 2027</div>
   <a class="credit" href="https://www.instagram.com/elysium.invitaciones" target="_blank" rel="noopener">@elysium.invitaciones</a>
 </footer>
 
-<button class="music-btn" id="musicBtn" type="button" aria-label="Reproducir o pausar la música">
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-  <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+<button class="vinyl-btn" id="musicBtn" type="button" aria-label="Reproducir o pausar la música">
+  <div class="vinyl-tonearm"><div class="vinyl-tonearm-pivot"></div><div class="vinyl-tonearm-line"></div><div class="vinyl-tonearm-head"></div></div>
+  <div class="vinyl-spin"><div class="vinyl-disc"><div class="vinyl-sheen"></div><div class="vinyl-label-text">MG<small>XV</small></div><div class="vinyl-hole"></div></div></div>
+  <div class="vinyl-icons">
+    <svg class="vinyl-icon-play" viewBox="0 0 24 24" fill="#fbf1de" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="vinyl-icon-pause" viewBox="0 0 24 24" fill="#fbf1de" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </div>
 </button>
 <audio id="bgAudio" src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-mariana/cancion.mp3" preload="none" loop></audio>
 
@@ -811,8 +922,8 @@ function initScroll(){
   if(REDUCED){ return; }
   /* Portada: parallax del camafeo (escala 1 → 1.08) y nombre que sube y se desvanece */
   /* Portada: textos suben, se desvanecen y difuminan; el fondo sube y se difumina un poco */
-  gsap.to('#heroInner',{y:-110,opacity:0,filter:'blur(10px)',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-  gsap.to('#heroBg',{y:-70,filter:'blur(5px) brightness(.92)',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.fromTo('#heroInner',{y:0,opacity:1,filter:'blur(0px)'},{y:-110,opacity:0,filter:'blur(10px)',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.fromTo('#heroBg',{y:0,filter:'blur(0px) brightness(1)'},{y:-70,filter:'blur(5px) brightness(.92)',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
   /* Ken Burns suave del camafeo en reposo */
   gsap.to('#cameo svg',{scale:1.03,duration:7,yoyo:true,repeat:-1,ease:'sine.inOut',transformOrigin:'50% 50%'});
 
@@ -851,7 +962,7 @@ function initScroll(){
 
   /* Vestimenta: cards entran y las figuras flotan/balancean */
   gsap.fromTo('.dcx-figs',{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.dcx-figs',start:'top 88%',once:true}});
-  gsap.fromTo('.dcx-item',{opacity:0,y:20},{opacity:1,y:0,duration:.6,stagger:.12,ease:'back.out(2)',scrollTrigger:{trigger:'#dcxSw',start:'top 92%',once:true}});
+  gsap.fromTo('#dcxOne',{opacity:0,scale:.8},{opacity:1,scale:1,duration:.8,ease:'back.out(2)',scrollTrigger:{trigger:'#dcxOne',start:'top 92%',once:true}});
 
   /* Regalos: destello al entrar */
 
@@ -930,19 +1041,15 @@ function initSectionFades(){
 }
 initSectionFades();
 
-/* ---------- 5. Colores sugeridos: se cruzan de lugar y regresan ---------- */
+/* ---------- 5. Colores sugeridos: una bolita que cambia de color ---------- */
 (function(){
-  var items=document.querySelectorAll('#dcxSw .dcx-item');if(items.length<3||REDUCED)return;
-  var d=items[1].offsetLeft-items[0].offsetLeft||110;
-  var tl=gsap.timeline({repeat:-1,repeatDelay:1.2,delay:1});
-  tl.to(items[0],{x:2*d,duration:1.3,ease:'power2.inOut'},1.2)
-    .to(items[0],{y:-22,duration:.65,ease:'sine.out',yoyo:true,repeat:1},1.2)
-    .to(items[2],{x:-2*d,duration:1.3,ease:'power2.inOut'},1.2)
-    .to(items[2],{y:22,duration:.65,ease:'sine.out',yoyo:true,repeat:1},1.2)
-    .to(items[1],{scale:1.1,duration:.65,yoyo:true,repeat:1,ease:'sine.inOut'},1.2)
-    .to([items[0],items[2]],{x:0,duration:1.3,ease:'power2.inOut'},4.2)
-    .to(items[0],{y:22,duration:.65,ease:'sine.out',yoyo:true,repeat:1},4.2)
-    .to(items[2],{y:-22,duration:.65,ease:'sine.out',yoyo:true,repeat:1},4.2);
+  var dots=document.querySelectorAll('#dcxOne .dcx-dot'),names=document.querySelectorAll('#dcxOne .dcx-name'),i=0;
+  if(dots.length<2)return;
+  setInterval(function(){
+    dots[i].classList.remove('on');names[i].classList.remove('on');
+    i=(i+1)%dots.length;
+    dots[i].classList.add('on');names[i].classList.add('on');
+  },2600);
 })();
 
 /* ---------- 6. Lluvia de sobres: no se detiene; el sobre aterriza al centrar la sección ---------- */
@@ -997,6 +1104,20 @@ initSectionFades();
   setTimeout(function(){if(!landed&&sec.getBoundingClientRect().top<innerHeight)land();},4000);
 })();
 
+/* Nota sellada: al tocar se rompe el sello y la portada se levanta */
+(function(){
+  var n=document.getElementById('adultNote');if(!n)return;
+  n.addEventListener('click',function(){
+    var open=!n.classList.contains('open');
+    n.classList.toggle('open',open);n.setAttribute('aria-expanded',open?'true':'false');
+    if(open&&!REDUCED){
+      var r=n.getBoundingClientRect();
+      for(var k=0;k<14;k++){var d=document.createElement('i');d.className='an-spark';d.style.left=(r.left+r.width/2)+'px';d.style.top=(r.top+r.height*.42)+'px';document.body.appendChild(d);
+        (function(d){var a=Math.random()*Math.PI*2,R=40+Math.random()*90;gsap.fromTo(d,{x:0,y:0,opacity:1,scale:1},{x:Math.cos(a)*R,y:Math.sin(a)*R,opacity:0,scale:.3,duration:1+Math.random()*.6,ease:'power2.out',onComplete:function(){d.remove();}});})(d);}
+    }
+  });
+})();
+
 /* Calendario */
 (function(){
   var t=encodeURIComponent('XV Años de Mariana'),d=encodeURIComponent('Recepción y cena · 4:45 PM'),l=encodeURIComponent('https://maps.google.com/?q=6.173400,-75.449814');
@@ -1026,11 +1147,6 @@ initSectionFades();
   document.getElementById('nfClose').addEventListener('click',closeM);
   list.addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();closeM();
     var t=document.getElementById(a.dataset.id);setTimeout(function(){t.scrollIntoView({behavior:'smooth'});},350);});
-  document.getElementById('npShare').addEventListener('click',function(){
-    var data={title:'XV Años de Mariana',text:'Una cena muy especial · 15 de abril de 2027',url:location.origin+location.pathname};
-    if(navigator.share){navigator.share(data).catch(function(){});}
-    else if(navigator.clipboard){navigator.clipboard.writeText(data.url).then(function(){alert('Enlace copiado');});}
-  });
 })();
 
 /* Confeti con los colores de la invitación */
